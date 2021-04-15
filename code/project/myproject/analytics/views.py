@@ -15,7 +15,7 @@ def update_counter_more(request):
     counter = get_object_or_404(queryset)
     counter.more_counter += 1
     counter.save()
-    if counter.more_counter > 1:
+    if counter.more_counter > 0:
         call_model(username)
     return HttpResponse("Success!")
 # Update the counter_readmore field of Session database.
