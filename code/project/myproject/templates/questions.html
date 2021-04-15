@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block title  %} | Answer questions {% endblock  %}
+{% block content %}
+<section class="bg-light py-5">
+<br>
+<br>
+<div class="container">
+  <div class="row">
+     <div class="col-md-6 mx-auto">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+          <h4>
+          <i class="fas fa-user-plus"></i> Questionnaire </h4>
+          <p>If you are using the app for first time please answer the questionaire</p>
+          </div>
+          <br>
+          <div class="card-body">
+          <div style='transform: scale(0.65); position: relative; top: -100px;'>
+          <h3>Why are you visiting the museum?</h3>
+          <p>Choose 1 answer</p>
+          <form action="{% url 'update_type_professional' %}" method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <hr />
+            <label for='option-1' style=' padding: 5px; font-size: 1.5rem;'>
+              <input type='radio' name='option' value='1' id='option-1' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+              I am interested in Technology and Science
+            </label>
+            <hr />
+            <label for='option-2' style=' padding: 5px; font-size: 1.5rem;'>
+              <input type='radio' name='option' value='2' id='option-2' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+              It is a place to learn and have fun with companions
+            </label>
+            <hr />
+            <label for='option-3' style=' padding: 5px; font-size: 1.5rem;'>
+              <input type='radio' name='option' value='3' id='option-3' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+              It is a good place to take children to
+            </label>
+            <hr />
+            <label for='option-4' style=' padding: 5px; font-size: 1.5rem;'>
+              <input type='radio' name='option' value='4' id='option-4' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+              To escape from everyday routine and recharge my powers
+            </label>
+            <hr />
+           </div>
+        </div>
+        <div style='transform: scale(0.65); position: relative; top: -300px;'>
+        <h3>What would make you feel that your visit was successful?</h3>
+        <p>Choose 1 answer</p>
+        <div class="form-group">
+          <hr />
+          <label for='option-a' style=' padding: 5px; font-size: 1.5rem;'>
+            <input type='radio' name='option1' value='a' id='option-a' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+          If my kids or companions have fun and learn new things
+          </label>
+          <hr />
+          <label for='option-b' style=' padding: 5px; font-size: 1.5rem;'>
+            <input type='radio' name='option1' value='b' id='option-b' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+          If I expand my horizons and learn new concepts in Science and Technology
+          </label>
+          <hr />
+          <label for='option-c' style=' padding: 5px; font-size: 1.5rem;'>
+            <input type='radio' name='option1' value='c' id='option-c' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+          If I relax and revive</label>
+          <hr />
+          <label for='option-d' style=' padding: 5px; font-size: 1.5rem;'>
+            <input type='radio' name='option1' value='d' id='option-d' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+          If I manage to see a city highlight</label>
+          <hr />
+          <label for='option-e' style=' padding: 5px; font-size: 1.5rem;'>
+            <input type='radio' name='option1' value='e' id='option-e' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
+          If I find the specific things related to my profession or hobby that I am looking for</label>
+          <hr />
+        </div>
+        </div>
+        <input type="submit" value="Submit" style="margin-top:-390px;"class="btn btn-secondary btn-block categ-btn">
+        </form>
+        <a href="/" style="background:none; border:none; margin:0;padding:0; cursor: pointer; position:absolute; right:110; margin-top:-80px;" >Skip >></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% endblock  %}
