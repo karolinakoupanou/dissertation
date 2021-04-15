@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.dropbtn {
+  background-color: #303030;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #A8A8A8;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #F8F8F8}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #A8A8A8;
+}
+</style>
+<style>
+  .vertical-menu {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .vertical-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+  }
+
+  .vertical-menu a:hover {
+    background-color: #ccc;
+  }
+
+  .vertical-menu a.active {
+    background-color: #404040 ;
+    color: white;
+  }
+  .body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+</style>
+
+<script>
+  function Readmore(){
+    var x = document.getElementById('ReadMore');
+     if (x.style.display == 'none') {
+         x.style.display = 'block';
+     }
+     //else {
+     //     x.style.display = 'none';
+     // }
+  };
+  function Video(){
+    var x = document.getElementById('Video');
+     if (x.style.display == 'none') {
+         x.style.display = 'block';
+     } 
+     //else {
+     //     x.style.display = 'none';
+     // }
+  };
+  function Links(){
+    document.getElementById("Links").style.display = "none";
+  };
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+{% if verified == True %}
+  {% if category == 'Recharger' %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        Video(); 
+      });
+    </script>
+  {% endif %}
+  {% if category == 'Solicializer Facilitator' or category == 'Socializer Facilitator' %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        Video(); 
+      });
+      $(document).ready(function(){
+        Links(); 
+      });
+    </script>
+  {% endif %} 
+  {% if category == 'Explorer' or category == 'Experience Seeker' or category == 'Professional/Hobbylist' %}
+    <script type="text/javascript">
+      $(document).ready(function(){
+        Video(); 
+      });
+      $(document).ready(function(){
+        Readmore(); 
+      });
+      $(document).ready(function(){
+        Links(); 
+      });
+    </script>
+  {% endif %}  
+{% endif %}
+<section id="showcase-inner" class="py-5">
+  <div class="container py-5">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">{{product_page.name}}</h1>
+        <br>
+        <img class="card-img-top" style="width:428px;height:428px;" src="{{ product_page.product_image.url }}" alt="Card image cap">
+        <br>
+        <br>
+        <p>{{ product_page.text_description }}</p>
+        <div class="vertical-menu">
+            <a class="active">Learn More</a>
+            <a class="btn readmorecounter-btn" onclick="Readmore()">Read More</a>
+            <a id="V-btn" class="btn videocounter-btn" onclick="Video()">Video</a>
+        </div>
+        <br>
+        <div id="ReadMore" style="display:none">{{ product_page.more_info }}</div>
+        <div id="Video" style="display:none">
+          <video id="v" width="320" height="240" controls>
+          <source src="{{ product_page.video.url }}" type="video/mp4"></video>
+        </div>
+        <br>
+        {% if verified == True %}
+          {% if category == 'Solicializer Facilitator' or category == 'Socializer Facilitator' %}
+            <div class="vertical-menu">
+              <a class="active">External Links</a>
+              <a class="btn btn-link" href="{{ product_page.link_1 }}">Link 1</a>
+              <a class="btn btn-link" href="{{ product_page.link_2 }}">Link 2</a>
+            </div>
+          {% endif %} 
+          {% if category == 'Explorer' or category == 'Experience Seeker' or category == 'Professional/Hobbylist' %}
+            <div class="vertical-menu">
+              <a class="active">External Links</a>
+              <a class="btn btn-link" href="{{ product_page.link_1 }}">Link 1</a>
+              <a class="btn btn-link" href="{{ product_page.link_2 }}">Link 2</a>
+            </div>
+          {% endif %}  
+        {% endif %}
+        <div class="dropdown">
+          <button id="Links" class="dropbtn">External Links</button>
+          <div class="dropdown-content">
+          <a class="btn btn-link" href="{{ product_page.link_1 }}">Link 1</a>
+          <a class="btn btn-link" href="{{ product_page.link_2 }}">Link 2</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+  var token = '{{csrf_token}}'
+    $(".readmorecounter-btn").click(function(){
+         $.ajax({
+           headers: {"X-CSRFToken": token},
+           type: 'POST',
+           url: '/update_counter_readmore'
+         });
+     });
+</script>
+<script type="text/javascript">
+  var token = '{{csrf_token}}'
+    $(".videocounter-btn").click(function(){
+         $.ajax({
+           headers: {"X-CSRFToken": token},
+           type: 'POST',
+           url: '/update_counter_video'
+         });
+     });
+</script>
+<script type="text/javascript">
+  var vid = document.getElementById("v");
+  vid.onended = function(){
+    $.ajax({
+      headers: {"X-CSRFToken": token},
+      type: 'POST',
+      url: '/update_counter_playedvideo'
+    });
+  };
+</script>
+<script type="text/javascript">
+  var token = '{{csrf_token}}'
+    $(".btn-link").click(function(){
+         $.ajax({
+           headers: {"X-CSRFToken": token},
+           type: 'POST',
+           url: '/update_counter_links'
+         });
+     });
+</script>
+{% endblock  %}
